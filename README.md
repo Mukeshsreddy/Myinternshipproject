@@ -1,0 +1,61 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Question {
+    private String question;
+    private String answer;
+
+    public Question(String question, String answer) {
+        this.question = question;
+        this.answer = answer;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public boolean checkAnswer(String userAnswer) {
+        return answer.equalsIgnoreCase(userAnswer);
+    }
+}
+
+class Quiz {
+    private ArrayList<Question> questions = new ArrayList<>();
+
+    public void addQuestion(Question question) {
+        questions.add(question);
+    }
+
+    public void startQuiz() {
+        Scanner scanner = new Scanner(System.in);
+        int score = 0;
+
+        for (Question q : questions) {
+            System.out.println(q.getQuestion());
+            String userAnswer = scanner.nextLine();
+
+            if (q.checkAnswer(userAnswer)) {
+                System.out.println("Correct!");
+                score++;
+            } else {
+                System.out.println("Incorrect.");
+            }
+        }
+
+        System.out.println("Quiz completed! Your score is: " + score + "/" + questions.size());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Quiz quiz = new Quiz();
+
+      
+        quiz.addQuestion(new Question("What is the capital of France?", "Paris"));
+        quiz.addQuestion(new Question("What is 2 + 2?", "4"));
+        quiz.addQuestion(new Question("Which planet is known as the Red Planet?", "Mars"));
+
+        // Starting the quiz
+        quiz.startQuiz();
+    }
+}
